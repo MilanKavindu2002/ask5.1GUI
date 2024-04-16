@@ -1,0 +1,49 @@
+import RPi.GPIO as GPIO
+from tkinter import *
+
+# Set up GPIO pins
+GPIO.setmode(GPIO.BCM)
+red_pin = 18
+green_pin = 23
+blue_pin = 24
+GPIO.setup(red_pin, GPIO.OUT)
+GPIO.setup(green_pin, GPIO.OUT)
+GPIO.setup(blue_pin, GPIO.OUT)
+
+# Function to turn on the red LED
+def turn_on_red_led():
+    GPIO.output(red_pin, GPIO.HIGH)
+    GPIO.output(green_pin, GPIO.LOW)
+    GPIO.output(blue_pin, GPIO.LOW)
+
+# Function to turn on the green LED
+def turn_on_green_led():
+    GPIO.output(red_pin, GPIO.LOW)
+    GPIO.output(green_pin, GPIO.HIGH)
+    GPIO.output(blue_pin, GPIO.LOW)
+
+# Function to turn on the blue LED
+def turn_on_blue_led():
+    GPIO.output(red_pin, GPIO.LOW)
+    GPIO.output(green_pin, GPIO.LOW)
+    GPIO.output(blue_pin, GPIO.HIGH)
+
+# Create GUI window
+root = Tk()
+root.title("LED Controller")
+
+# Create radio buttons for each LED
+red_radio = Radiobutton(root, text="Red", command=turn_on_red_led)
+red_radio.pack(anchor=W)
+
+green_radio = Radiobutton(root, text="Green", command=turn_on_green_led)
+green_radio.pack(anchor=W)
+
+blue_radio = Radiobutton(root, text="Blue", command=turn_on_blue_led)
+blue_radio.pack(anchor=W)
+
+# Run the GUI
+root.mainloop()
+
+# Clean up GPIO
+GPIO.cleanup()
